@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portfolio - Estudiante ASIR</title>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay muted loop id="background-video">
+            <source src="assets/video-fondo.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="content">
+        <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+        <script>
+          AOS.init();
+        </script>
+
+      
+        <header>
+            <div id="reloj" class="reloj"></div>
+
+            <h1>Bienvenido a mi Portfolio</h1>
+            <p>Hola, soy Christian Valverde Leon, estudiante de ASIR, apasionado por la administración de sistemas, redes y seguridad informática.</p>
+        </header>
+
+        <section id="sobre-mi">
+            <h2>Sobre Mí</h2>
+            <p>Soy estudiante de ASIR con interés en la gestión de infraestructuras tecnológicas, redes y ciberseguridad. A lo largo de mi formación, he adquirido conocimientos sobre sistemas operativos, administración de servidores, redes y virtualización. Me encanta resolver problemas técnicos y optimizar procesos a través de la automatización y las mejores prácticas en TI.</p>
+        </section>
+
+        <section id="habilidades">
+            <h2>Habilidades Técnicas</h2>
+            <ul>
+                <li><strong>Sistemas Operativos:</strong> Linux, Windows Server, VMware</li>
+                <li><strong>Redes:</strong> TCP/IP, DNS, DHCP, VPN, Firewalls</li>
+                <li><strong>Ciberseguridad:</strong> Protección contra malware, configuraciones seguras, criptografía</li>
+                <li><strong>Herramientas:</strong> Git, Docker, VirtualBox, Wireshark</li>
+                <li><strong>Automatización y Scripts:</strong> Bash, Python, PowerShell</li>
+            </ul>
+        </section>
+
+        <section id="proyectos">
+            <h2>Mis Proyectos</h2>
+                <p>A continuación, te presento algunos de los proyectos más destacados que he realizado a lo largo de mi formación en ASIR:</p>
+                <li><a href="https://github.com/ChristianValverdeLeon/Portfolio-IAW" target="_blank">Mi Portfolio</a> - Testeo de creacion de mi propio portfolio </li>
+            </ul>
+            <a href="https://github.com/ChristianValverdeLeon" target="_blank">
+            <button class="btn-interactivo"> Ver Mi perfil</button>
+        </a> 
+        </section>
+
+        <section id="experiencia">
+            <h2>Formación y Proyectos Académicos</h2>
+            <ul>
+                <li><strong>Grado Superior en Administración de Sistemas Informáticos en Red (ASIR)</strong> - 2024 - Actualidad
+                    <p>Formación en administración de sistemas, redes, servidores, y ciberseguridad, con proyectos prácticos para gestionar infraestructuras tecnológicas y realizar auditorías de seguridad.</p>
+                </li>
+                <li><strong>Proyecto Final de Grado Medio: "Monitorización de Servidores Linux"</strong> - 2023
+                    <p>Desarrollé un sistema de monitorización de servidores Linux utilizando herramientas como Nagios, Zabbix y scripts en Bash para enviar alertas ante caídas del sistema o sobrecargas de recursos.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="Proyectos que me han llamado la atencion ">
+            <h2>Proyectos que me han llamado la atencion</h2>
+            <ul>
+                <li><a href="https://github.com/dvarrui/proyectos-de-ejemplo" target="_blank">Proyectos de ejemplos</a> - Este repositorio contiene diverso material, tutoriales y ejemplos de código... principalmente basados en el lenguaje de programación Ruby.</li>
+                <li><a href="https://github.com/midudev/javascript-100-proyectos">100 proyectos de Java</a> - 100 proyectos de JavaScript con código y vídeos</li>
+                <li><a href="https://github.com/ZeroxyDev/Random-Chat-App" target="_blank">Chat with random people</a> - Aplicacion que te permite hablar con gente aleatoria </li>
+            </ul>
+        </section>
+
+       
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <form id="contacto-form">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required>
+
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" required>
+
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" required></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+
+            <script>
+                document.getElementById('contacto-form').addEventListener('submit', function (event) {
+                    const nombre = document.getElementById('nombre').value;
+                    const email = document.getElementById('email').value;
+                    const mensaje = document.getElementById('mensaje').value;
+
+                    if (!nombre || !email || !mensaje) {
+                        alert("Por favor, rellena todos los campos.");
+                        event.preventDefault(); // Previene el envío si hay campos vacíos
+                    } else {
+                        alert("¡Gracias por ponerte en contacto!");
+                    }
+                });
+            </script>
+        </section>
+
+   
+        <section id="comentarios">
+            <h2>Comentarios</h2>
+            <form id="comentarios-form">
+                <label for="comentario">Deja tu comentario:</label>
+                <textarea id="comentario" required></textarea>
+                <button type="submit">Enviar Comentario</button>
+            </form>
+
+            <div id="comentarios-lista">
+            
+            </div>
+
+            <script>
+                document.getElementById('comentarios-form').addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    const comentario = document.getElementById('comentario').value;
+                    const comentarioDiv = document.createElement('div');
+                    comentarioDiv.textContent = comentario;
+                    document.getElementById('comentarios-lista').appendChild(comentarioDiv);
+                    document.getElementById('comentario').value = '';
+                });
+            </script>
+        </section>
+
+        <footer>
+            <p>Mi Portfolio - Estudiante ASIR | Contacto: christianvaleon@gmail.com</p>
+        </footer>
+    </div>
+
+  
+    <script>
+        function actualizarReloj() {
+            const fecha = new Date();
+            let horas = fecha.getHours();
+            let minutos = fecha.getMinutes();
+            let segundos = fecha.getSeconds();
+
+            minutos = minutos < 10 ? '0' + minutos : minutos;
+            segundos = segundos < 10 ? '0' + segundos : segundos;
+
+            const horaActual = `${horas}:${minutos}:${segundos}`;
+
+            document.getElementById('reloj').textContent = horaActual;
+        }
+
+        setInterval(actualizarReloj, 1000);
+    </script>
+</body>
+</html>
