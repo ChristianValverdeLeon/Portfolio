@@ -1,17 +1,17 @@
-# Usa una imagen oficial de Python
-FROM python:3.10
+# Usar una imagen base de Python
+FROM python:3.12
 
-# Define el directorio de trabajo dentro del contenedor
-WORKDIR /app
+# Establecer el directorio de trabajo
+WORKDIR /portfolio-asir
 
-# Copia los archivos del proyecto al contenedor
-COPY . /app
+# Copiar los archivos del proyecto
+COPY . .
 
-# Instala las dependencias sin venv
-RUN pip install --no-cache-dir -r requirements.txt  
+# Instalar las dependencias
+RUN pip install -r requirements.txt
 
-# Expone el puerto 5000 para Flask
+# Exponer el puerto 5000
 EXPOSE 5000
 
-# Comando para iniciar la app
+# Comando para ejecutar la aplicación
 CMD ["python", "app.py"]
