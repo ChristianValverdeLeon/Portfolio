@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   portfolioasir:
-    image: portfolioasir
+    image: portfolio
     build:
       context: .
       dockerfile: ./Dockerfile

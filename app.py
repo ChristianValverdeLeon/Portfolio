@@ -1,54 +1,50 @@
 from flask import Flask, render_template, request
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+from flask_mail import Mail, Message  # Importar Flask-Mail
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+# Configuración de Flask-Mail
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'cobomaster56@gmail.com'  # Reemplazar con tu correo
+app.config['MAIL_PASSWORD'] = 'Cobo.password'  # Reemplazar con tu contraseña
+app.config['MAIL_DEFAULT_SENDER'] = 'cobomaster56@gmail.com'  # Reemplazar con tu correo
+
+mail = Mail(app)  # Crear una instancia de Flask-Mail
+
+# Ruta para la página principal
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Ruta para procesar el formulario de contacto
+@app.route('/contact', methods=['POST'])
 def contact():
-    if request.method == 'POST':
-        # Obtener los datos del formulario
-        name = request.form['name']
-        email = request.form['email']
-        message = request.form['message']
+    # Obtener los datos del formulario
+    nombre = request.form['nombre']
+    email = request.form['email']
+    mensaje = request.form['mensaje']
 
-        # Configuración para enviar el correo
-        send_email(name, email, message)
+    # Llamar a la función que enviará el correo
+    send_email(nombre, email, mensaje)
 
-        # Puedes mostrar un mensaje de éxito o redirigir al usuario
-        return "Gracias por tu mensaje. Te contactaremos pronto."
+    # Retornar una respuesta al usuario
+    return "¡Gracias por ponerte en contacto! Tu mensaje ha sido enviado."
 
-    return render_template('contact.html')
-
-def send_email(name, sender_email, message):
-    # Configura tu correo y servidor SMTP
-    sender_password = 'Cobo.password'
-    receiver_email = 'cobomaster56@gmail.com'
-
-    # Establecer el servidor de correo
-    smtp_server = 'smtp.gmail.com'
-    smtp_port = 587
+# Función para enviar el correo con Flask-Mail
+def send_email(nombre, email, mensaje):
+    receiver_email = 'christianvaleon@gmail.com'  # Correo receptor
 
     # Crear el mensaje
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = receiver_email
-    msg['Subject'] = f'Nuevo mensaje de {name}'
-
-    body = f'Nombre: {name}\nCorreo: {sender_email}\n\nMensaje:\n{message}'
-    msg.attach(MIMEText(body, 'plain'))
+    msg = Message(f'Mensaje de {nombre}', recipients=[receiver_email])
+    msg.body = f'Nombre: {nombre}\nCorreo: {email}\n\nMensaje:\n{mensaje}'
 
     # Enviar el correo
     try:
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()  # Establecer conexión segura
-        server.login(sender_email, sender_password)  # Iniciar sesión
-        server.sendmail(sender_email, receiver_email, msg.as_string())  # Enviar el correo
-        server.quit()  # Cerrar la conexión
+        mail.send(msg)  # Usar Flask-Mail para enviar el correo
     except Exception as e:
         print(f'Error al enviar el correo: {e}')
 
 if __name__ == '__main__':
     app.run(debug=True)
-    app.run(debug=True, host='0.0.0.0', port=5000)
